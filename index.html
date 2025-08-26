@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+        <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="splash-scene" class="scene">
+    <h1 class="my-title">Thông Trí</h1>
+    <button id="help-btn" class="help-btn" title="Hướng dẫn chơi">❓</button>
+    <div id="help-label">Luật chơi</div>
+    <div class="game-title">Memory Card Game</div>
+    <button id="start-btn">Bắt đầu</button>
+    </div>
+    <div id="loading-scene" class="scene" style="display:none">
+        <h2>Đang tải tài nguyên...</h2>
+        <div id="loading-progress">0%</div>
+    </div>
+    <div id="game-scene" class="scene" style="display:none">
+        <div class="game-container">
+            <button id="sound-toggle" class="sound-toggle" title="Bật/Tắt âm thanh">
+                <span id="sound-icon">🔊</span>
+            </button>
+            <h2>Chơi game</h2>
+            <div id="game-board" class="game-board"></div>
+            <div class="game-info">
+                <span id="moves">Moves: 0</span>
+                <span id="timer">Time: 0s</span>
+            </div>
+            <div id="result" class="result"></div>
+            <button id="restart-btn" title="Chơi lại">Restart</button>
+        </div>
+    </div>
+    <div id="effect-scene" class="scene" style="display:none; pointer-events:none;"></div>
+    <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:100;"></canvas>
+    <audio id="flip-sound" src="assets/audio/card-flip.mp3"></audio>
+    <audio id="win-sound" src="assets/audio/victory.mp3"></audio>
+    <audio id="fail-sound" src="assets/audio/card-mismatch.mp3"></audio>
+    <audio id="start-sound" src="assets/audio/fat-caps-audionatix.mp3"></audio>
+    <audio id="match-sound" src="assets/audio/card-match.mp3"></audio>
+    <script src="js/game.js"></script>
+    <!-- Các thẻ audio đã được đồng bộ, chỉ giữ một bộ duy nhất -->
+</body>
+</html>
