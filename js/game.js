@@ -1,4 +1,19 @@
 const emojiThemes = [
+    // Hình cá nhân
+    [
+        'assets/images/hinh1.png',
+        'assets/images/hinh2.png',
+        'assets/images/hinh3.png',
+        'assets/images/hinh4.png',
+        'assets/images/hinh5.png',
+        'assets/images/hinh6.png',
+        'assets/images/hinh7.png',
+        'assets/images/hinh8.png',
+        'assets/images/hinh9.png',
+        'assets/images/hinh10.png',
+        'assets/images/hinh11.png',
+        'assets/images/hinh12.png'
+    ],
     // Quốc kỳ
     ['🇻🇳','🇺🇸','🇯🇵','🇰🇷','🇨🇳','🇫🇷','🇩🇪','🇬🇧','🇮🇳','🇷🇺','🇧🇷','🇹🇭'],
     // Nghệ thuật
@@ -210,11 +225,17 @@ if (soundToggle && soundIcon) {
 
 function renderBoard() {
     board.innerHTML = '';
+    // Kiểm tra nếu là chủ đề hình ảnh (dựa vào đường dẫn .png/.jpg)
+    const isImageTheme = cards.length > 0 && typeof cards[0] === 'string' && cards[0].match(/\.png$|\.jpg$|\.jpeg$|\.gif$/);
     cards.forEach((symbol, idx) => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.dataset.index = idx;
-        card.innerHTML = '<span style="visibility:hidden">'+symbol+'</span>';
+        if (isImageTheme) {
+            card.innerHTML = '<img src="'+symbol+'" alt="card" style="visibility:hidden;width:80px;height:80px;object-fit:cover;border-radius:12px">';
+        } else {
+            card.innerHTML = '<span style="visibility:hidden">'+symbol+'</span>';
+        }
         card.addEventListener('click', () => flipCard(card, symbol, idx));
         board.appendChild(card);
         card.title = 'Lật thẻ'; // Tooltip cho thẻ
@@ -224,7 +245,12 @@ function renderBoard() {
 function flipCard(card, symbol, idx) {
     if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
     card.classList.add('flipped');
-    card.innerHTML = '<span>'+symbol+'</span>';
+    // Nếu là hình ảnh thì hiển thị ảnh, còn lại là emoji
+    if (typeof symbol === 'string' && symbol.match(/\.png$|\.jpg$|\.jpeg$|\.gif$/)) {
+        card.innerHTML = '<img src="'+symbol+'" alt="card" style="width:80px;height:80px;object-fit:cover;border-radius:12px">';
+    } else {
+        card.innerHTML = '<span>'+symbol+'</span>';
+    }
     flipSound.currentTime = 0;
     flipSound.play();
     flippedCards.push({card, symbol, idx});
